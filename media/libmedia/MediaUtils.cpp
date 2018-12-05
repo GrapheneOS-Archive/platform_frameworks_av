@@ -38,6 +38,14 @@ void limitProcessMemory(
         return;
     }
 
+#ifdef __LP64__
+    // This needs to be ported to a better mechanism like memory control groups
+    // in order to remain compatible with hardening mechanisms based on large
+    // PROT_NONE address space reservations.
+    ALOGW("Running with hardened malloc implementation, skip enforcing memory limitations.");
+    return;
+#endif
+
     long pageSize = sysconf(_SC_PAGESIZE);
     long numPages = sysconf(_SC_PHYS_PAGES);
     size_t maxMem = SIZE_MAX;

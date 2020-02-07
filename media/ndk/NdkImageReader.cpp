@@ -202,6 +202,7 @@ AImageReader::setBufferRemovedListener(AImageReader_BufferRemovedListener* liste
     return setBufferRemovedListenerLocked(listener);
 }
 
+__attribute__((no_sanitize("cfi")))
 void AImageReader::CallbackHandler::onMessageReceived(
         const sp<AMessage> &msg) {
     switch (msg->what()) {

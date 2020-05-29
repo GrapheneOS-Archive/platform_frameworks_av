@@ -206,22 +206,6 @@ public:
 
     void dump(String8 *dst, const String8 &tag, int spaces = 0, bool verbose = true) const;
 
-protected:
-    // Sorts devices by type.
-    int do_compare(const void* lhs, const void* rhs) const override
-    {
-        const auto& l = *reinterpret_cast<const sp<DeviceDescriptor>*>(lhs);
-        const auto& r = *reinterpret_cast<const sp<DeviceDescriptor>*>(rhs);
-
-        audio_devices_t lt = l->type();
-        audio_devices_t rt = r->type();
-
-        if (lt == rt) {
-            return 0;
-        }
-        return lt > rt ? 1 : -1;
-    }
-
 private:
     void refreshTypes();
     audio_devices_t mDeviceTypes;
